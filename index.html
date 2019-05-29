@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>markdownNote</title>
+    <!--图标和样式表-->
+    <link rel="stylesheet" href="CSS/noteStyle.css">
+</head>
+<body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!--自动将Markdown文本转换为HTML-->
+    <script src="https://unpkg.com/marked"></script>
+    <!--日期格式化-->
+    <script src="https://unpkg.com/moment"></script>
+    <div id="notebook">
+        <aside class="side-bar">
+            <button @click="addNode" :title="'已经有' + notes.length + '条笔记了！'">增加笔记</button>
+            <ul v-for="( note, index) in sortNotes">
+                <li>
+                    <button @click="getNote(index)">{{ note.title }}</button>
+                    <button @click="deleteNote(index)">删除</button>
+                    <button @click="alterNoteTitle(index)">重命名</button>
+                    <button @click="favoriteNote(index)">收藏</button>
+                </li>
+            </ul>
+        </aside>
+        <section class="main">
+            <input type="text" v-model="title">
+            <textarea v-model="content"></textarea>
+            <span>
+                <span>创建日期：</span>
+                <span>{{ time | date }}</span>
+            </span>
+            <span>
+                <span>行数：</span>
+                <span>{{ countLine }}</span>
+            </span>
+            <span>
+                <span>字符数：</span>
+                <span>{{ countCharNum }}</span>
+            </span>
+        </section>
+        <aside class="preview" v-html="notePreview"></aside>
+    </div>
+    <script type="text/javascript" src="JS/markdowmJS.js"></script>
+</body>
+</html>
